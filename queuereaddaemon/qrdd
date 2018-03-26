@@ -1,0 +1,31 @@
+#!/bin/sh
+
+### BEGIN INIT INFO
+# Provides:          QueueReadDeamon
+# Required-Start:    $remote_fs $syslog
+# Required-Stop:     $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Test example
+# Description:       Test example.
+### END INIT INFO
+
+
+
+DESC="QueueReadDeamon"
+DAEMON=/opt/QueueReadDeamon/QueueReadDeamon
+PIDFILE=/opt/QueueReadDeamon/pid
+SCRIPTNAME=/etc/init.d/"$NAME"
+
+test -f $DAEMON || exit 0
+
+case "$1" in
+start)	/opt/QueueReadDeamon/QueueReadDeamon > /opt/QueueReadDeamon/pid
+	;;
+stop)	kill `cat /opt/QueueReadDeamon/pid`
+        ;;
+*)	log_action_msg "Usage: /etc/init.d/qrdd {start|stop}"
+        exit 2
+        ;;
+esac
+exit 0
